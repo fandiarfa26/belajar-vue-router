@@ -1,7 +1,8 @@
 <script setup lang="ts"></script>
 
 <template>
-  <RouterView />
+  <h1>Home</h1>
+  <p>This is the home page</p>
 </template>
 
 <style scoped></style>
