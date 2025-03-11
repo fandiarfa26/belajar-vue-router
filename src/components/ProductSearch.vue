@@ -14,7 +14,7 @@ const search = ref(route.query.product || "");
 const router = useRouter();
 
 watchEffect(() => {
-  router.replace({ query: { product: search.value } });
+  router.replace({ name: "product-search", query: { product: search.value } });
   fetch(`/api/products.json`)
     .then((res) => res.json())
     .then((products) =>
