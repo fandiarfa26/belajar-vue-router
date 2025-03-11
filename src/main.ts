@@ -10,6 +10,9 @@ import User from "./components/User.vue";
 import UserProfile from "./components/UserProfile.vue";
 import UserOrder from "./components/UserOrder.vue";
 import UserWishlist from "./components/UserWishlist.vue";
+import UserHeader from "./components/UserHeader.vue";
+import UserOrderFooter from "./components/UserOrderFooter.vue";
+import UserWishlistFooter from "./components/UserWishlistFooter.vue";
 
 const router = createRouter({
   routes: [
@@ -37,23 +40,37 @@ const router = createRouter({
       children: [
         {
           path: "",
-          component: UserProfile,
           name: "user",
+          components: {
+            default: UserProfile,
+            header: UserHeader,
+          },
         },
         {
           path: "profile",
-          component: UserProfile,
           name: "user-profile",
+          components: {
+            default: UserProfile,
+            header: UserHeader,
+          },
         },
         {
           path: "order",
-          component: UserOrder,
           name: "user-order",
+          components: {
+            default: UserOrder,
+            header: UserHeader,
+            footer: UserOrderFooter,
+          },
         },
         {
           path: "wishlist",
-          component: UserWishlist,
           name: "user-wishlist",
+          components: {
+            default: UserWishlist,
+            header: UserHeader,
+            footer: UserWishlistFooter,
+          },
         },
       ],
     },
