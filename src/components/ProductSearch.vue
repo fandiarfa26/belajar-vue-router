@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, watchEffect } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
 interface ProductType {
   id: number;
@@ -10,14 +10,16 @@ interface ProductType {
 
 const products = ref<ProductType[]>([]);
 const route = useRoute();
-const search = route.query.product || "";
+const search = ref(route.query.product || "");
+const router = useRouter();
 
 watchEffect(() => {
+  router.replace({ query: { product: search.value } });
   fetch(`/api/products.json`)
     .then((res) => res.json())
     .then((products) =>
       products.filter((product: ProductType) => {
-        return product.name.toLowerCase().includes(search.toLowerCase());
+        return product.name.toLowerCase().includes(search.value.toLowerCase());
       })
     )
     .then((data) => {
@@ -28,6 +30,9 @@ watchEffect(() => {
 
 <template>
   <h1>Products</h1>
+  <form>
+    <input type="search" v-model="search" placeholder="Search..." />
+  </form>
   <table border="1">
     <thead>
       <tr>
