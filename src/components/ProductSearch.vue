@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, watchEffect } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { useRouter } from "vue-router";
 
 interface ProductType {
   id: number;
@@ -9,8 +9,9 @@ interface ProductType {
 }
 
 const products = ref<ProductType[]>([]);
-const route = useRoute();
-const search = ref(route.query.product || "");
+// const route = useRoute();
+const { product } = defineProps(["product"]);
+const search = ref(product || "");
 const router = useRouter();
 
 watchEffect(() => {

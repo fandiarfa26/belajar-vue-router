@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, watchEffect } from "vue";
-import { useRoute } from "vue-router";
 
 interface ProductType {
   id: number;
@@ -8,14 +7,15 @@ interface ProductType {
   price: number;
 }
 
+const { id } = defineProps(["id"]);
+
 const isLoaded = ref<boolean>(false);
 const isError = ref<boolean>(false);
 const product = ref<ProductType | null>(null);
-const route = useRoute();
 
 watchEffect(() => {
-  if (route.params.id) {
-    fetch(`/api/product/${route.params.id}.json`)
+  if (id) {
+    fetch(`/api/product/${id}.json`)
       .then((res) => res.json())
       .then((data) => {
         product.value = data;
@@ -31,7 +31,7 @@ watchEffect(() => {
 </script>
 
 <template>
-  <template v-if="route.params.id">
+  <template v-if="id">
     <div v-if="isLoaded">
       <template v-if="product">
         <h1>{{ product.id }} - {{ product.name }}</h1>
@@ -39,10 +39,10 @@ watchEffect(() => {
       </template>
     </div>
     <div v-else-if="isError">
-      <p>Failed to fetch product id: {{ route.params.id }}</p>
+      <p>Failed to fetch product id: {{ id }}</p>
     </div>
     <div v-else>
-      <p>Loading fetch product id: {{ route.params.id }}</p>
+      <p>Loading fetch product id: {{ id }}</p>
     </div>
   </template>
   <template v-else>
