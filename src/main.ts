@@ -90,6 +90,10 @@ const router = createRouter({
     {
       path: "/:notfound*",
       component: NotFound,
+      beforeEnter: (to, from, next) => {
+        console.info(`not found page: ${to.fullPath}`);
+        next();
+      },
     },
   ],
   history: createWebHistory(),
@@ -106,6 +110,15 @@ const router = createRouter({
    *    - tidak mengubah url pada browser
    *    - setiap navigasi menggunakan fungsi router.push()
    */
+});
+
+router.beforeEach((to, from, next) => {
+  console.info(`before navigate to ${to.fullPath} from ${from.fullPath}`);
+  next();
+});
+
+router.afterEach((to, from) => {
+  console.info(`after navigate to ${to.fullPath} from ${from.fullPath}`);
 });
 
 createApp(App).use(router).mount("#app");
