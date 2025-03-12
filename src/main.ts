@@ -100,6 +100,19 @@ const router = createRouter({
     },
   ],
   history: createWebHistory(),
+  /**
+   * Vue Router menyediakan 3 history modes:
+   * 1. HTML5 History Mode
+   *    - menggunakan createWebHistory()
+   *    - seperti biasa dilakukan
+   * 2. Hash Mode
+   *    - menggunakan createWebHashHistory()
+   *    - harus ada tanda "#" di URL setelah domain: (contoh: http://localhost:8080/#/about)
+   * 3. Memory Mode
+   *    - menggunakan createMemoryHistory()
+   *    - tidak mengubah url pada browser
+   *    - setiap navigasi menggunakan fungsi router.push()
+   */
 });
 
 createApp(App).use(router).mount("#app");
